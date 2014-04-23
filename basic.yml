@@ -4,4 +4,8 @@
    - name: install zsh
      homebrew: name=zsh state=installed
 
+   - name: clone oh-my-zsh
+     git: repo=git://github.com/robbyrussell/oh-my-zsh.git dest={{ansible_env.HOME}}/.oh-my-zsh
+   - name: configure oh-my-zsh
+     shell: cp {{ansible_env.HOME}}/.oh-my-zsh/templates/zshrc.zsh-template {{ansible_env.HOME}}/.zshrc
 
