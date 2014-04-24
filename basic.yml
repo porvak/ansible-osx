@@ -6,6 +6,30 @@
 
    - name: clone oh-my-zsh
      git: repo=git://github.com/robbyrussell/oh-my-zsh.git dest={{ansible_env.HOME}}/.oh-my-zsh
+
    - name: configure oh-my-zsh
      shell: cp {{ansible_env.HOME}}/.oh-my-zsh/templates/zshrc.zsh-template {{ansible_env.HOME}}/.zshrc
+
+   - name: install powerline fonts (ansible's pip module doesn't seem to be working with this)
+     shell: pip install --user git+git://github.com/Lokaltog/powerline
+
+   - name: install powerline fonts
+     git: repo=https://github.com/Lokaltog/powerline-fonts dest={{ansible_env.HOME}}/opt/powerline-fonts
+
+   - name: install fontforge
+     homebrew: name=fontforge state=installed
+
+   - name: copy powerline fonts over
+     shell: cp -R {{ansible_env.HOME}}/opt/powerline-fonts/{{item}} {{ansible_env.HOME}}/Library/Fonts
+     with_items:
+       - SourceCodePro
+       - Terminus
+       - InconsolataDz
+       - Inconsolata
+
+   - name: refresh font cache
+     shell: fc-cache -vf ~/Library/Fonts
+     
+
+
 
