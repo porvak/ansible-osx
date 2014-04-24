@@ -29,6 +29,11 @@
 
    - name: refresh font cache
      shell: fc-cache -vf ~/Library/Fonts
+
+   - name: install brew cask based applications
+     homebrew_cask: name={{item.app}} state={{item.state}}
+     with_items:
+       - {app: intellij-idea, state: installed}
      
 
 
